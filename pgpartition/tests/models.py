@@ -8,7 +8,9 @@ class Partition(models.Model):
     int_field = models.IntegerField()
 
     class Meta:
-        partition = pgpartition.Partition(method=pgpartition.RANGE, key="created_at")
+        partition = pgpartition.Partition(
+            method=pgpartition.RANGE, key="created_at", interval=pgpartition.DAILY
+        )
 
 
 class PartitionFK(models.Model):
