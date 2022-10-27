@@ -32,7 +32,7 @@ class Partition:
         self.key = [key] if not isinstance(key, (list, tuple)) else key
         self.control = control or self.key
         self.control = (
-            [self.control] if not isinstance(self.control(list, tuple)) else self.control
+            [self.control] if not isinstance(self.control, (list, tuple)) else self.control
         )
         self.interval = interval
         self.start_partition = start_partition
@@ -95,7 +95,7 @@ class Partition:
 
     def check(self, model):
         if self.method == RANGE:
-            if model._meta.pk.name not in self.partition.key:
+            if model._meta.pk.name not in self.key:
                 raise ValueError("Primary key must be in partition key")
 
             if len(self.control) != 1:
@@ -113,4 +113,15 @@ class Partition:
             raise ValueError("Invalid partition method. Must be pgpartition.RANGE")
 
     def deconstruct(self):
-        return "pgpartition.Partition", [], {"method": self.method, "key": self.key}
+        return (
+            "pgpartition.Partition",
+            [],
+            {
+                "method": self.method,
+                "key": self.key,
+                "control": self.control,
+                "interval": self.interval,
+                "start_partition": self.start_partition,
+                "premake": self.premake,
+            },
+        )
