@@ -1,0 +1,9 @@
+
+# Manual install on Mac
+https://stackoverflow.com/questions/66475018/install-pg-partman-on-macos
+
+# Editing postgresql.conf of Mac app
+https://postgresapp.com/documentation/configuration-general.html
+
+# How to get the schema of a particular table based on search path
+https://stackoverflow.com/questions/49427036/postgresql-determine-schema-from-table-name
