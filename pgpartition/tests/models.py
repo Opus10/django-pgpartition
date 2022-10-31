@@ -3,7 +3,7 @@ from django.db import models
 import pgpartition
 
 
-class Partition(models.Model):
+class TimePartition(models.Model):
     created_at = models.DateTimeField(primary_key=True)
     int_field = models.IntegerField()
 
@@ -14,4 +14,11 @@ class Partition(models.Model):
 
 
 class PartitionFK(models.Model):
-    partition = models.ForeignKey(Partition, on_delete=models.CASCADE)
+    partition = models.ForeignKey(TimePartition, on_delete=models.CASCADE)
+
+
+class IntPartition(models.Model):
+    class Meta:
+        partition = pgpartition.Partition(
+            method=pgpartition.RANGE, key="id", interval=1000
+        )
